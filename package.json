@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
+    "doppler": "^1.0.0",
     "hono": "^4.10.6",
     "prisma": "^7.0.0"
   },

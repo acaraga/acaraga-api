@@ -6,6 +6,7 @@
       "dependencies": {
         "@types/node": "^24.10.1",
         "@types/pg": "^8.15.6",
+        "doppler": "^1.0.0",
         "hono": "^4.10.6",
         "prisma": "^7.0.0",
       },
@@ -88,6 +89,8 @@
     "denque": ["denque@2.1.0", "", {}, "sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw=="],
 
     "destr": ["destr@2.0.5", "", {}, "sha512-ugFTXCtDZunbzasqBxrK93Ik/DRYsO6S/fedkWEMKqt04xZ4csmnmwGDBAb07QWNaGMAmnTIemsYZCksjATwsA=="],
+
+    "doppler": ["doppler@1.0.0", "", {}, "sha512-fr1qJ1KSNhdTO3GPeq6GE0SxbpLcRR+CnQmd9wS1//6x2zPlNQQlC64eker/rE6b0CDNBkhsvJamR51M4YC6TQ=="],
 
     "dotenv": ["dotenv@16.6.1", "", {}, "sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow=="],
 
