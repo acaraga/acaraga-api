@@ -15,10 +15,10 @@ model Event {
   description String?
 
   dateTimeStart DateTime
-  dateTimeEnd DateTime
+  dateTimeEnd   DateTime
 
   registrationUrl String?
-  registrationFee  Int
+  registrationFee Int
 
   category   Category? @relation(fields: [categoryId], references: [id])
   categoryId String?
