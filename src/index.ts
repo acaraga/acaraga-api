@@ -1,17 +1,36 @@
-import { Hono } from "hono";
-import { prisma } from "./lib/db";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { Scalar } from "@scalar/hono-api-reference";
 
-const app = new Hono();
+import { eventsRoute } from "./modules/event/routes";
+import { categoriesRoute } from "./modules/category/routes";
+import { cors } from "hono/cors";
 
-app.get("/", (c) => {
-  return c.json({
-    title: "Acara Olahraga REST API",
-  });
+const app = new OpenAPIHono();
+
+app.use(cors());
+
+app.route("/events", eventsRoute);
+app.route("/categories", categoriesRoute);
+
+app.doc("/openapi.json", {
+  openapi: "3.0.0",
+  info: {
+    title: "Acaraga API",
+    version: "1.0.0",
+  },
 });
 
-app.get("/events", async (c) => {
-  const events = await prisma.event.findMany();
+app.get(
+  "/",
+  Scalar({
+    pageTitle: "Acaraga API",
+    url: "/openapi.json",
+  })
+);
 
-  return c.json(events);
-});
+// app.get("/events", async (c) => {
+//   const events = await db.event.findMany();
+
+//   return c.json(events);
+// });
 export default app;

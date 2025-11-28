@@ -13,6 +13,7 @@ model Event {
   name        String
   imageUrl    String?
   description String?
+  location    String?
 
   dateTimeStart DateTime
   dateTimeEnd   DateTime
