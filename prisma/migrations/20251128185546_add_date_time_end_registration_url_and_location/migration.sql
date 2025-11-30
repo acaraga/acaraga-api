@@ -8,4 +8,5 @@
 -- AlterTable
 ALTER TABLE "Event" DROP COLUMN "registrationLink",
 ADD COLUMN     "dateTimeEnd" TIMESTAMP(3) NOT NULL,
+ADD COLUMN     "location" TEXT,
 ADD COLUMN     "registrationUrl" TEXT;
