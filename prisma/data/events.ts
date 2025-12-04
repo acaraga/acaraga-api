@@ -15,7 +15,8 @@ export const dataEvents: Event[] = [
   {
     slug: "napak-tilas-raden-wijaya",
     name: "Napak Tilas Raden Wijaya",
-    imageUrl: null,
+    imageUrl:
+      "https://3zwxtcw6a1.ucarecd.net/16bc6d2d-32f6-4db7-88b9-25ea45adcd27/-/preview/800x1000",
     description:
       "Jejakkan langkahmu menyusuri sejarah dari Trowulan Mojokerto menuju Universitas Brawijaya Malang, sejauh 70 KM dengan elevasi menantang 1600 MDPL!",
     location: "Mojokerto",
@@ -28,7 +29,8 @@ export const dataEvents: Event[] = [
   {
     slug: "nusanta-run",
     name: "NusantaRun",
-    imageUrl: null,
+    imageUrl:
+      "https://3zwxtcw6a1.ucarecd.net/549cd610-3985-445f-81fc-5cfb0f7cab0f/-/preview/800x1000",
     description:
       "Yayasan Lari Nusantara is the founder and organizer of NusantaRun, an annual ultra marathon charity event who go the distance—city by city—to raise awareness and funds for education in underserved communities across Indonesia.",
     location: "Indonesia",
@@ -41,7 +43,8 @@ export const dataEvents: Event[] = [
   {
     slug: "ui-ultra",
     name: "UI Ultra",
-    imageUrl: null,
+    imageUrl:
+      "https://3zwxtcw6a1.ucarecd.net/fe305651-bc99-4dfe-bdf0-91541c63e88e/-/preview/800x1000",
     description:
       "Bersiaplah untuk menyalakan pengalaman lari yang tak terlupakan dan penuh energi di penghujung tahun 2025",
     location: "Depok",
@@ -52,9 +55,38 @@ export const dataEvents: Event[] = [
     registrationFee: 1400000,
   },
   {
+    slug: "gorontalo-half-marathon",
+    name: "Gorontalo Half Marathon",
+    imageUrl:
+      "https://3zwxtcw6a1.ucarecd.net/d2ad3667-5434-4bf8-96a5-f2cc50557893/-/preview/800x1000",
+    description:
+      "Gorontalo Half Marathon adalah Event Olahraga Lari yang dilaksanakan oleh Pemerintah Provinsi Gorontalo melalui Dinas pemuda dan Olahraga Provinsi Gorontalo bekerjasama dengan komunitas penggiat olahraga lari dalam rangka memeriahkan HUT Provinsi Gorontalo pada bulan Desember.",
+    location: "Gorontalo",
+    categorySlug: "running",
+    dateTimeStart: new Date("2025-12-07T00:00:00+07:00"),
+    dateTimeEnd: new Date("2025-12-07T23:59:00+07:00"),
+    registrationUrl: "https://gorontalohalfmarathon.id",
+    registrationFee: 40000,
+  },
+  {
+    slug: "air-force-run",
+    name: "Air Force Run",
+    imageUrl:
+      "https://3zwxtcw6a1.ucarecd.net/308442d4-1845-4a62-b9ab-20c1810ebbe7/-/preview/800x1000",
+    description:
+      "Perwira Alumni AAU 1996 (Parasena) kembali akan menggelar lomba lari Air Force Run (AFR) 2025 edisi ke-6, pada hari Minggu, 7 Desember 2025, di Lanud Halim Perdanakusuma, Jakarta.",
+    location: "Jakarta",
+    categorySlug: "running",
+    dateTimeStart: new Date("2025-12-07T00:00:00+07:00"),
+    dateTimeEnd: new Date("2025-12-07T23:59:00+07:00"),
+    registrationUrl: "https://airforcerun96.id",
+    registrationFee: 375000,
+  },
+  {
     slug: "mainsepeda-malang-century-journey-2025",
     name: "MAINSEPEDA MALANG CENTURY JOURNEY 2025",
-    imageUrl: null,
+    imageUrl:
+      "https://3zwxtcw6a1.ucarecd.net/9307d7fc-5c45-4a48-8193-777fe6a46700/-/preview/201x251",
     description:
       "Bekerja sama dengan Pemerintah Kota Malang, event ini akan menantang kita untuk menaklukkan rute Century Mile, sekitar 160 km.  Start dan Finish di Balai Kota Malang, kita akan menyusuri tempat-tempat keren dan segmen-segmen seru.",
     location: "Malang",
@@ -67,7 +99,8 @@ export const dataEvents: Event[] = [
   {
     slug: "garuda-youth-swim-series-1",
     name: "Garuda Youth Swim Series 1",
-    imageUrl: null,
+    imageUrl:
+      "https://3zwxtcw6a1.ucarecd.net/9cf312aa-41fc-473d-9796-9365c236a19b/-/preview/194x259",
     description: "Garuda Youth Swim Series 1 2025 di Ciracas",
     location: "Ciracas",
     categorySlug: "swimming",
