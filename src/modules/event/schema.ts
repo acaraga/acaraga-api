@@ -39,3 +39,7 @@ export const EventCreateSchema = z.object({
 export const EventIdParamSchema = z.object({
   id: z.string().openapi({ example: "0923HJK347SDJ9831KOS" }),
 });
+
+export const EventUpdateSchema = EventCreateSchema.partial().openapi({
+  description: "Fields that can be updated for the product",
+});
