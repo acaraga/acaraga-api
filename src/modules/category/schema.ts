@@ -8,6 +8,8 @@ export const CategorySchema = z.object({
   updatedAt: z.date(),
 });
 
+export const CategoriesSchema = z.array(CategorySchema);
+
 export const CategorySlugSchema = z.object({
   categorySlug: z.string().openapi({ example: "category-slug" }),
 });
