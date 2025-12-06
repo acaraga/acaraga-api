@@ -1,8 +1,27 @@
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
-import { CategorySchema, CategorySlugSchema } from "./schema";
+import { CategoriesSchema, CategorySchema, CategorySlugSchema } from "./schema";
 import { db } from "../../lib/db";
 
 export const categoriesRoute = new OpenAPIHono();
+
+categoriesRoute.openapi(
+  createRoute({
+    method: "get",
+    path: "/",
+    responses: {
+      200: {
+        description: "Get all categories",
+        content: {
+          "application/json": { schema: CategoriesSchema },
+        },
+      },
+    },
+  }),
+  async (c) => {
+    const categories = await db.category.findMany();
+    return c.json(categories);
+  }
+);
 
 categoriesRoute.openapi(
   createRoute({
@@ -18,44 +37,39 @@ categoriesRoute.openapi(
     },
   }),
   async (c) => {
-    const { categorySlug } = c.req.valid("param"); // 1. Cari kategori (wajib ada untuk melanjutkan)
+    const { categorySlug } = c.req.valid("param");
 
     const category = await db.category.findUnique({
       where: { slug: categorySlug },
       select: {
         id: true,
         slug: true,
-        name: true, // Ambil detail kategori
+        name: true,
       },
     });
 
     if (!category) {
-      return c.notFound(); // ✅ Jalur 404 (Category not found)
+      return c.notFound();
     }
 
     const events = await db.event.findMany({
       where: { categoryId: category.id },
-      include: { category: true }, // Include category (walaupun sudah tahu, ini bagus untuk konsistensi)
+      include: { category: true },
       orderBy: { createdAt: "desc" },
-    }); // Jika Anda ingin endpoint ini mengembalikan Kategori + Events terkait:
+    });
 
     const responsePayload = {
-      // Ambil data dari object category yang sudah diambil di awal
       id: category.id,
       slug: category.slug,
       name: category.name,
-      // Tambahkan list events yang sudah diformat
+
       events: events.map((event) => ({
-        // 🚨 PENTING: Lakukan mapping/formatting untuk menghindari error tipe/Date
         id: event.id,
         name: event.name,
         slug: event.slug,
-        dateTimeStart: event.dateTimeStart.toISOString(), // Konversi Date ke String
-        // ... field lain yang dibutuhkan oleh skema Anda
+        dateTimeStart: event.dateTimeStart.toISOString(),
       })),
     };
-
-    // 🌟 Wajib: Kembalikan Response di akhir jalur sukses
-    return c.json(responsePayload, 200); // ✅ Jalur 200 (Success)
+    return c.json(responsePayload, 200);
   }
 );
