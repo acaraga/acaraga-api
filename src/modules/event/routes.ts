@@ -27,11 +27,7 @@ eventsRoute.openapi(
       include: { category: true },
     });
 
-    const formattedEvents = events.map((event) => {
-      return { event };
-    });
-
-    return c.json(formattedEvents);
+    return c.json(events);
   }
 );
 
@@ -54,7 +50,7 @@ eventsRoute.openapi(
   }),
   async (c) => {
     try {
-      const data = await c.req.valid("json");
+      const data = c.req.valid("json");
 
       const newEvent = await db.event.create({ data });
 

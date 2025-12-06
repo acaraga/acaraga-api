@@ -28,9 +28,4 @@ app.get(
   })
 );
 
-// app.get("/events", async (c) => {
-//   const events = await db.event.findMany();
-
-//   return c.json(events);
-// });
 export default app;
