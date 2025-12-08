@@ -2,17 +2,15 @@
   "name": "acaraga-api",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "build": "bun install",
+    "build": "bun install && bun run db:gen && bun run db:migrate:deploy",
     "start": "bun run src/index.ts",
     "db:up": "docker compose up -d",
     "db:migrate": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",
-    "prestart": "bun prisma generate",
     "db:gen": "prisma generate --no-hints",
-    "db:seed": "prisma db seed -- --environment development",
+    "db:seed": "prisma db seed",
     "db:studio": "prisma studio --browser none",
-    "db:reset": "prisma migrate reset",
-    "deploy": "bun prisma migrate deploy && bun db:seed"
+    "db:reset": "prisma migrate reset"
   },
   "dependencies": {
     "@hono/zod-openapi": "^1.1.5",
