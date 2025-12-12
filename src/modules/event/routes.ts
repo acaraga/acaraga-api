@@ -24,7 +24,7 @@ eventsRoute.openapi(
   }),
   async (c) => {
     const events = await db.event.findMany({
-      include: { category: true },
+      include: { category: true, location: true },
     });
 
     return c.json(events);
@@ -50,9 +50,14 @@ eventsRoute.openapi(
   }),
   async (c) => {
     try {
-      const data = c.req.valid("json");
+      const { location, ...rest } = c.req.valid("json");
 
-      const newEvent = await db.event.create({ data });
+      const newEvent = await db.event.create({
+        data: {
+          ...rest,
+          locationId: location,
+        },
+      });
 
       return c.json(newEvent, 201);
     } catch (error) {
@@ -125,7 +130,7 @@ eventsRoute.openapi(
   async (c) => {
     try {
       const { id } = c.req.valid("param");
-      const data = await c.req.valid("json");
+      const { location, ...rest } = await c.req.valid("json");
 
       const event = await db.event.findUnique({ where: { id } });
       if (!event) {
@@ -134,7 +139,10 @@ eventsRoute.openapi(
 
       const updatedEvent = await db.event.update({
         where: { id },
-        data,
+        data: {
+          ...rest,
+          ...(location && { locationId: location }),
+        },
       });
 
       return c.json({
