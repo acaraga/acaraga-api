@@ -3,6 +3,7 @@ import {
   EventCreateSchema,
   EventIdParamSchema,
   EventSchema,
+  EventSlugParamSchema,
   EventsSchema,
   EventUpdateSchema,
 } from "./schema";
@@ -28,6 +29,35 @@ eventsRoute.openapi(
     });
 
     return c.json(events);
+  }
+);
+
+eventsRoute.openapi(
+  createRoute({
+    method: "get",
+    path: "/{slug}",
+    request: { params: EventSlugParamSchema },
+    responses: {
+      200: {
+        content: { "application/json": { schema: EventSchema } },
+        description: "Get one event by Slug",
+      },
+      400: { description: "Event not found" },
+    },
+  }),
+  async (c) => {
+    const { slug } = c.req.valid("param");
+
+    const event = await db.event.findUnique({
+      where: { slug },
+      include: { category: true, location: true },
+    });
+
+    if (!event) {
+      return c.json({ message: "Event not found" }, 400);
+    }
+
+    return c.json(event);
   }
 );
 
