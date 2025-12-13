@@ -11,28 +11,6 @@ const adapter = new PrismaPg({
 
 const db = new PrismaClient({ adapter });
 
-async function seedCategories() {
-  console.log("Seeding Categories...");
-  for (const category of dataCategories) {
-    await db.category.upsert({
-      where: { slug: category.slug },
-      update: category,
-      create: category,
-    });
-    console.info(`  ✅ Seeded Category: ${category.name}`);
-  }
-}
-
-async function seedLocations() {
-  for (const location of dataLocations) {
-    await db.location.upsert({
-      where: { slug: location.slug },
-      update: { ...location },
-      create: { ...location },
-    });
-  }
-}
-
 async function seedEvents() {
   console.log("Seeding Events...");
   for (const dataEvent of dataEvents) {
@@ -71,6 +49,28 @@ async function seedEvents() {
       console.error("Fatal database error during event seeding:", e);
       throw e;
     }
+  }
+}
+
+async function seedCategories() {
+  console.log("Seeding Categories...");
+  for (const category of dataCategories) {
+    await db.category.upsert({
+      where: { slug: category.slug },
+      update: category,
+      create: category,
+    });
+    console.info(`  ✅ Seeded Category: ${category.name}`);
+  }
+}
+
+async function seedLocations() {
+  for (const location of dataLocations) {
+    await db.location.upsert({
+      where: { slug: location.slug },
+      update: { ...location },
+      create: { ...location },
+    });
   }
 }
 
