@@ -40,6 +40,10 @@ export const EventIdParamSchema = z.object({
   id: z.string().openapi({ example: "0923HJK347SDJ9831KOS" }),
 });
 
+export const EventSlugParamSchema = z.object({
+  slug: z.string().openapi({ example: "summer-festival-2025" }),
+});
+
 export const EventUpdateSchema = EventCreateSchema.partial().openapi({
   description: "Fields that can be updated for the product",
 });
