@@ -43,13 +43,6 @@ Follow these steps to run the project locally.
 
 Copy the example environment file and configure your variables:
 
-```bash
-cp .env.example .env 
-
-
-
-## Getting Started
-
 Set up `.env` by copying from `.env.example` for reference
 
 ```sh
