@@ -7,8 +7,9 @@ import {
   TokenSchema,
   UserSchema,
 } from "../user/schema";
-import { signToken } from "../../lib/token";
+
 import { checkAuthorized } from "./middleware";
+import { signToken } from "../../lib/token";
 
 export const authRoute = new OpenAPIHono();
 
