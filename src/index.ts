@@ -9,7 +9,16 @@ const app = new OpenAPIHono();
 
 app.use(
   cors({
-    origin: ["https://acaraga.pages.dev", "http://localhost:5173"],
+    origin: (origin) => {
+      if (
+        origin === "http://localhost:5173" ||
+        origin === "https://acaraga.pages.dev" ||
+        origin?.endsWith(".acaraga.pages.dev")
+      ) {
+        return origin;
+      }
+      return null;
+    },
     allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
     exposeHeaders: ["Content-Length"],
