@@ -1,5 +1,9 @@
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
-import { CategoriesSchema, CategorySchema, CategorySlugSchema } from "./schema";
+import {
+  CategoriesSchema,
+  CategorySlugSchema,
+  CategoryWithEventsSchema,
+} from "./schema";
 import { db } from "../../lib/db";
 
 export const categoriesRoute = new OpenAPIHono();
@@ -30,8 +34,12 @@ categoriesRoute.openapi(
     request: { params: CategorySlugSchema },
     responses: {
       200: {
-        content: { "application/json": { schema: CategorySchema } },
-        description: "Get category by slug",
+        description: "Get category with events",
+        content: {
+          "application/json": {
+            schema: CategoryWithEventsSchema,
+          },
+        },
       },
       404: { description: "Category not found" },
     },
@@ -41,11 +49,6 @@ categoriesRoute.openapi(
 
     const category = await db.category.findUnique({
       where: { slug: categorySlug },
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-      },
     });
 
     if (!category) {
@@ -54,7 +57,6 @@ categoriesRoute.openapi(
 
     const events = await db.event.findMany({
       where: { categoryId: category.id },
-      include: { category: true },
       orderBy: { createdAt: "desc" },
     });
 
@@ -62,14 +64,14 @@ categoriesRoute.openapi(
       id: category.id,
       slug: category.slug,
       name: category.name,
-
       events: events.map((event) => ({
         id: event.id,
-        name: event.name,
         slug: event.slug,
+        name: event.name,
         dateTimeStart: event.dateTimeStart.toISOString(),
       })),
     };
+
     return c.json(responsePayload, 200);
   }
 );
