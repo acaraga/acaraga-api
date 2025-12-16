@@ -77,9 +77,9 @@ export const EventCreateSchema = z.object({
 export const EventUpdateSchema = EventCreateSchema.partial();
 
 export const EventIdParamSchema = z.object({
-  id: z.string(),
+  id: z.string().openapi({ example: "01KCK5C8M6A5F2R9B7X4YHD" }),
 });
 
 export const EventSlugParamSchema = z.object({
-  slug: z.string(),
+  slug: z.string().openapi({ example: "summer-festival-2026" }),
 });
