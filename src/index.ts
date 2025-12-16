@@ -7,7 +7,19 @@ import { cors } from "hono/cors";
 
 const app = new OpenAPIHono();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://e7ccb232.acaraga.pages.dev", // URL Cloudflare Anda yang sukses tadi
+      "http://localhost:5173", // Agar tetap bisa dicoba di laptop (dev)
+    ],
+    allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+    exposeHeaders: ["Content-Length"],
+    maxAge: 600,
+    credentials: true,
+  })
+);
 
 app.route("/events", eventsRoute);
 app.route("/categories", categoriesRoute);
