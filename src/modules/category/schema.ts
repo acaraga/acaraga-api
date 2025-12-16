@@ -4,8 +4,22 @@ export const CategorySchema = z.object({
   id: z.string(),
   slug: z.string(),
   name: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export const CategoryWithEventsSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  name: z.string(),
+  events: z.array(
+    z.object({
+      id: z.string(),
+      slug: z.string(),
+      name: z.string(),
+      dateTimeStart: z.string(),
+    })
+  ),
 });
 
 export const CategoriesSchema = z.array(CategorySchema);
