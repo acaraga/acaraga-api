@@ -9,10 +9,7 @@ const app = new OpenAPIHono();
 
 app.use(
   cors({
-    origin: [
-      "https://e7ccb232.acaraga.pages.dev", // URL Cloudflare Anda yang sukses tadi
-      "http://localhost:5173", // Agar tetap bisa dicoba di laptop (dev)
-    ],
+    origin: ["https://acaraga.pages.dev", "http://localhost:5173"],
     allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
     exposeHeaders: ["Content-Length"],
