@@ -27,3 +27,7 @@ export const CategoriesSchema = z.array(CategorySchema);
 export const CategorySlugSchema = z.object({
   categorySlug: z.string().openapi({ example: "category-slug" }),
 });
+
+export const CategoryIdParamsSchema = z.object({
+  id: z.string().openapi({ example: "01KCK5C8M6A5F2RX34IDSECH" }),
+});

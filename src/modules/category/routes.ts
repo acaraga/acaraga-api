@@ -1,6 +1,7 @@
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import {
   CategoriesSchema,
+  CategoryIdParamsSchema,
   CategorySlugSchema,
   CategoryWithEventsSchema,
 } from "./schema";
@@ -73,5 +74,31 @@ categoriesRoute.openapi(
     };
 
     return c.json(responsePayload, 200);
+  }
+);
+
+categoriesRoute.openapi(
+  createRoute({
+    method: "delete",
+    path: "/{id}",
+    request: { params: CategoryIdParamsSchema },
+    responses: {
+      200: { description: "Category deleted successfully" },
+      404: { description: "Category not found" },
+    },
+  }),
+  async (c) => {
+    const { id } = c.req.valid("param");
+
+    const category = await db.category.findUnique({ where: { id } });
+    if (!category) {
+      return c.json({ message: "Category not found" }, 404);
+    }
+
+    await db.category.delete({ where: { id } });
+
+    return c.json({
+      message: `Category with id '${id}' deleted successfully`,
+    });
   }
 );
