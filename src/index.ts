@@ -7,25 +7,7 @@ import { cors } from "hono/cors";
 
 const app = new OpenAPIHono();
 
-app.use(
-  cors({
-    origin: (origin) => {
-      if (
-        origin === "http://localhost:5173" ||
-        origin === "https://acaraga.pages.dev" ||
-        origin?.endsWith(".acaraga.pages.dev")
-      ) {
-        return origin;
-      }
-      return null;
-    },
-    allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type", "Authorization"],
-    exposeHeaders: ["Content-Length"],
-    maxAge: 600,
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.route("/events", eventsRoute);
 app.route("/categories", categoriesRoute);
