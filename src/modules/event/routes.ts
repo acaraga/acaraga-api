@@ -15,6 +15,8 @@ eventsRoute.openapi(
   createRoute({
     method: "get",
     path: "/",
+    tags: ["Events"],
+    summary: "Get all events",
     responses: {
       200: {
         content: {
@@ -37,6 +39,8 @@ eventsRoute.openapi(
   createRoute({
     method: "get",
     path: "/{slug}",
+    tags: ["Events"],
+    summary: "Get event by slug",
     request: { params: EventSlugParamSchema },
     responses: {
       200: {
@@ -68,6 +72,8 @@ eventsRoute.openapi(
   createRoute({
     method: "post",
     path: "/",
+    tags: ["Events"],
+    summary: "Create new event",
     request: {
       body: {
         content: {
@@ -100,6 +106,9 @@ eventsRoute.openapi(
   createRoute({
     method: "patch",
     path: "/{id}",
+    tags: ["Events"],
+    summary: "Update event by Id",
+
     request: {
       params: EventIdParamSchema,
       body: {
@@ -141,6 +150,8 @@ eventsRoute.openapi(
   createRoute({
     method: "delete",
     path: "/{id}",
+    tags: ["Events"],
+    summary: "Delete event",
     request: { params: EventIdParamSchema },
     responses: {
       200: { description: "Event deleted successfully" },
