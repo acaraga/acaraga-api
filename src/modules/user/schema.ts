@@ -34,4 +34,7 @@ export const LoginUserSchema = z.object({
   password: z.string(),
 });
 
-export const TokenSchema = z.string();
+export const LoginResponseSchema = z.object({
+  user: UserSchema,
+  token: z.string(),
+});
