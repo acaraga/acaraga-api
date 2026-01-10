@@ -6,6 +6,7 @@ import {
   EventUpdateSchema,
   EventIdParamSchema,
   EventSlugParamSchema,
+  JoinEventCreateSchema,
 } from "./schema";
 import { db } from "../../lib/db";
 
@@ -171,5 +172,49 @@ eventsRoute.openapi(
     return c.json({
       message: `Event with id '${id}' deleted successfully`,
     });
+  }
+);
+
+eventsRoute.openapi(
+  createRoute({
+    method: "post",
+    path: "/join",
+    tags: ["Events"],
+    summary: "Join an event",
+    request: {
+      body: {
+        content: {
+          "application/json": { schema: JoinEventCreateSchema },
+        },
+      },
+    },
+    responses: {
+      200: { description: "Successfully joined" },
+      404: { description: "Event or User not found" },
+    },
+  }),
+  async (c) => {
+    const { eventId, userId } = c.req.valid("json");
+
+    try {
+      const updatedEvent = await db.event.update({
+        where: { id: eventId },
+        data: {
+          participants: {
+            connect: { id: userId },
+          },
+        },
+      });
+
+      return c.json({
+        message: "Berhasil bergabung ke event",
+        eventId: updatedEvent.id,
+      });
+    } catch (error) {
+      return c.json(
+        { message: "Gagal bergabung. Pastikan ID Event dan User benar." },
+        404
+      );
+    }
   }
 );
