@@ -16,6 +16,7 @@ app.route("/events", eventsRoute);
 app.route("/categories", categoriesRoute);
 app.route("/users", userRoute);
 app.route("/auth", authRoute);
+app.route("/join-events", joinEventsRoute);
 
 app.doc("/openapi.json", {
   openapi: "3.0.0",
