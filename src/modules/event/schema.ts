@@ -83,3 +83,14 @@ export const EventIdParamSchema = z.object({
 export const EventSlugParamSchema = z.object({
   slug: z.string().openapi({ example: "summer-festival-2026" }),
 });
+
+export const JoinEventCreateSchema = z.object({
+  eventId: z.string(),
+  userId: z.string(),
+});
+
+export const JoinEventResponseSchema = z.object({
+  success: z.boolean().openapi({ example: true }),
+  message: z.string().openapi({ example: "Successfully joined the event" }),
+  registrationId: z.string().openapi({ example: "REG-12345" }),
+});
