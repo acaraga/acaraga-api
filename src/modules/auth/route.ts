@@ -1,13 +1,13 @@
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import { db } from "../../lib/db";
 import {
-  UserSchema,
-  RegisterUserSchema,
-  LoginResponseSchema,
   LoginUserSchema,
+  PrivateUserSchema,
+  RegisterUserSchema,
+  TokenSchema,
+  UserSchema,
 } from "../user/schema";
 
-import { hashPassword, verifyPassword } from "../../lib/password";
 import { checkAuthorized } from "./middleware";
 import { signToken } from "../../lib/token";
 
@@ -23,22 +23,21 @@ authRoute.openapi(
     },
     responses: {
       201: {
-        description: "Registered new user",
+        description: "Register new users",
         content: { "application/json": { schema: UserSchema } },
       },
       400: {
-        description: "Failed to register new user",
+        description: "Failed ro register new user",
       },
     },
   }),
-
   async (c) => {
     const body = c.req.valid("json");
 
     try {
-      const hash = await hashPassword(body.password);
+      const hash = await Bun.password.hash(body.password);
 
-      const user = await db.user.create({
+      const users = await db.user.create({
         data: {
           username: body.username,
           email: body.email,
@@ -46,8 +45,7 @@ authRoute.openapi(
           password: { create: { hash } },
         },
       });
-
-      return c.json(user, 201);
+      return c.json(users, 201);
     } catch (error) {
       return c.json(
         {
@@ -59,7 +57,7 @@ authRoute.openapi(
   }
 );
 
-// POST /login
+// POST log in
 authRoute.openapi(
   createRoute({
     method: "post",
@@ -69,10 +67,15 @@ authRoute.openapi(
     },
     responses: {
       200: {
-        content: { "text/plain": { schema: LoginResponseSchema } },
-        description: "Successfully Logged In",
+        description: "Logged in user",
+        content: { "text/plain": { schema: TokenSchema } },
       },
-      400: { description: "Failed to Login" },
+      400: {
+        description: "Failed to login user",
+      },
+      404: {
+        description: "User not found",
+      },
     },
   }),
   async (c) => {
@@ -81,22 +84,42 @@ authRoute.openapi(
     try {
       const user = await db.user.findUnique({
         where: { email: body.email },
-        include: { password: true },
+        include: {
+          password: true,
+        },
       });
 
       if (!user) {
-        return c.json({ message: "User not found" }, 404);
+        return c.notFound();
       }
 
       if (!user.password?.hash) {
-        return c.json({ message: "User doesn't have a password" }, 400);
+        return c.json({
+          message: "User has no password",
+        });
+      }
+
+      const isMatch = await Bun.password.verify(
+        body.password,
+        user.password?.hash
+      );
+
+      if (!isMatch) {
+        return c.json({
+          message: "Password incorect",
+        });
       }
 
       const token = await signToken(user.id);
 
       return c.text(token);
     } catch (error) {
-      return c.json({ message: "Email or password is incorrect" }, 400);
+      return c.json(
+        {
+          message: "Email or password in correct",
+        },
+        400
+      );
     }
   }
 );
@@ -110,7 +133,10 @@ authRoute.openapi(
     responses: {
       200: {
         description: "Get authenticated user",
-        content: { "application/json": { schema: UserSchema } },
+        content: { "application/json": { schema: PrivateUserSchema } },
+      },
+      404: {
+        description: "User by id not found",
       },
     },
   }),

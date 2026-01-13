@@ -9,11 +9,6 @@ type Env = {
   };
 };
 
-type PayLoad = {
-  sub: string;
-  exp: string;
-};
-
 /**
  * Check for header and token
  *

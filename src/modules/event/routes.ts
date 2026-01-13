@@ -57,14 +57,42 @@ eventsRoute.openapi(
 
     const event = await db.event.findUnique({
       where: { slug },
-      include: { category: true, location: true },
+      include: {
+        category: true,
+        location: true,
+        joinedUsers: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                username: true,
+                fullName: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!event) {
       return c.json({ message: "Event not found" }, 404);
     }
 
-    return c.json(event);
+    const joined = {
+      total: event.joinedUsers.length,
+      users: event.joinedUsers.map((j) => ({
+        ...j.user,
+        joinedAt: j.joinedAt,
+      })),
+    };
+
+    const { joinedUsers, ...eventData } = event;
+
+    return c.json({
+      ...eventData,
+      joined,
+    });
   }
 );
 
@@ -173,3 +201,47 @@ eventsRoute.openapi(
     });
   }
 );
+
+// eventsRoute.openapi(
+//   createRoute({
+//     method: "post",
+//     path: "/join",
+//     tags: ["Events"],
+//     summary: "Join an event",
+//     request: {
+//       body: {
+//         content: {
+//           "application/json": { schema: EventCreateSchema },
+//         },
+//       },
+//     },
+//     responses: {
+//       200: { description: "Successfully joined" },
+//       404: { description: "Event or User not found" },
+//     },
+//   }),
+//   async (c) => {
+//     const { eventId, userId } = c.req.valid("json");
+
+//     try {
+//       const updatedEvent = await db.event.update({
+//         where: { id: eventId },
+//         data: {
+//           participants: {
+//             connect: { id: userId },
+//           },
+//         },
+//       });
+
+//       return c.json({
+//         message: "Berhasil bergabung ke event",
+//         eventId: updatedEvent.id,
+//       });
+//     } catch (error) {
+//       return c.json(
+//         { message: "Gagal bergabung. Pastikan ID Event dan User benar." },
+//         404
+//       );
+//     }
+//   }
+// );
