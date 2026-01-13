@@ -23,7 +23,8 @@ model User {
 }
 
 model Password {
-  id   String @id @default(ulid())
+  id String @id @default(ulid())
+
   hash String
 
   user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
