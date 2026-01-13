@@ -1,4 +1,8 @@
 import { z } from "@hono/zod-openapi";
+import {
+  EventParticipantUserSchema,
+  JoinedInfoSchema,
+} from "../join-events/schema";
 
 export const LocationSchema = z.object({
   id: z.string().openapi({ example: "01KCK0H8A6M5R9B2Q7CV094" }),
@@ -21,6 +25,9 @@ export const EventSchema = z.object({
   id: z.string().openapi({ example: "01KCK2P8M4A7F5R2B6X9YHDQ" }),
   slug: z.string().openapi({ example: "jakarta-running-2026" }),
   name: z.string().openapi({ example: "Jakarta running 2026" }),
+
+  participants: z.array(EventParticipantUserSchema).optional(),
+  totalParticipants: z.number().optional(),
 
   imageUrl: z.string().nullable().openapi({
     example: "https://cdn.uploadcare.com/4DHAG67-000",
@@ -53,6 +60,8 @@ export const EventSchema = z.object({
   updatedAt: z.string().openapi({
     example: "2025-12-01T10:00:00Z",
   }),
+
+  joined: JoinedInfoSchema.optional(),
 });
 
 export const EventsSchema = z.array(EventSchema);
@@ -84,13 +93,13 @@ export const EventSlugParamSchema = z.object({
   slug: z.string().openapi({ example: "summer-festival-2026" }),
 });
 
-export const JoinEventCreateSchema = z.object({
-  eventId: z.string(),
-  userId: z.string(),
-});
+// export const JoinEventCreateSchema = z.object({
+//   eventId: z.string(),
+//   userId: z.string(),
+// });
 
-export const JoinEventResponseSchema = z.object({
-  success: z.boolean().openapi({ example: true }),
-  message: z.string().openapi({ example: "Successfully joined the event" }),
-  registrationId: z.string().openapi({ example: "REG-12345" }),
-});
+// export const JoinEventResponseSchema = z.object({
+//   success: z.boolean().openapi({ example: true }),
+//   message: z.string().openapi({ example: "Successfully joined the event" }),
+//   registrationId: z.string().openapi({ example: "REG-12345" }),
+// });
