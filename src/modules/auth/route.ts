@@ -23,22 +23,21 @@ authRoute.openapi(
     },
     responses: {
       201: {
-        description: "Registered new user",
+        description: "Register new users",
         content: { "application/json": { schema: UserSchema } },
       },
       400: {
-        description: "Failed to register new user",
+        description: "Failed ro register new user",
       },
     },
   }),
-
   async (c) => {
     const body = c.req.valid("json");
 
     try {
       const hash = await Bun.password.hash(body.password);
 
-      const user = await db.user.create({
+      const users = await db.user.create({
         data: {
           username: body.username,
           email: body.email,
@@ -46,8 +45,7 @@ authRoute.openapi(
           password: { create: { hash } },
         },
       });
-
-      return c.json(user, 201);
+      return c.json(users, 201);
     } catch (error) {
       return c.json(
         {
@@ -68,8 +66,8 @@ authRoute.openapi(
       body: { content: { "application/json": { schema: LoginUserSchema } } },
     },
     responses: {
-      201: {
-        description: "Logged in to user",
+      200: {
+        description: "Logged in user",
         content: { "text/plain": { schema: TokenSchema } },
       },
       400: {
@@ -80,7 +78,6 @@ authRoute.openapi(
       },
     },
   }),
-
   async (c) => {
     const body = c.req.valid("json");
 
@@ -109,7 +106,7 @@ authRoute.openapi(
 
       if (!isMatch) {
         return c.json({
-          message: "Password incorrect",
+          message: "Password incorect",
         });
       }
 
@@ -119,7 +116,7 @@ authRoute.openapi(
     } catch (error) {
       return c.json(
         {
-          message: "Email or password is incorrect",
+          message: "Email or password in correct",
         },
         400
       );
@@ -128,7 +125,6 @@ authRoute.openapi(
 );
 
 // GET auth/me
-
 authRoute.openapi(
   createRoute({
     method: "get",
@@ -138,6 +134,9 @@ authRoute.openapi(
       200: {
         description: "Get authenticated user",
         content: { "application/json": { schema: PrivateUserSchema } },
+      },
+      404: {
+        description: "User by id not found",
       },
     },
   }),
