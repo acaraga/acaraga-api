@@ -55,7 +55,7 @@ export const dataEvents: Event[] = [
     registrationFee: 400000,
   },
   {
-    slug: "minion-run22026",
+    slug: "minion-run-2026",
     name: "Minion Run 2026",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/f2e0ebcc-f7c8-4de5-b3ae-927207b5ceeb/-/preview/800x1000",
