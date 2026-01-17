@@ -1,6 +1,7 @@
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import { db } from "../../lib/db";
 import {
+  AuthHeaderSchema,
   LoginUserSchema,
   PrivateUserSchema,
   RegisterUserSchema,
@@ -134,7 +135,8 @@ authRoute.openapi(
     method: "get",
     path: "/me",
     tags: ["Auth"],
-    summary: "Get current logged in user",
+    summary: "Get current user",
+    request: { headers: AuthHeaderSchema },
     middleware: checkAuthorized,
     responses: {
       200: {
