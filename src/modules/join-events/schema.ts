@@ -19,3 +19,15 @@ export const EventParticipantUserSchema = z.object({
   fullName: z.string(),
   email: z.string(),
 });
+
+export const JoinEventSchema = z.object({
+  eventId: z.string().openapi({
+    example: "01KCK2P8M4A7F5R2B6X9YHDQ",
+  }),
+});
+
+export const JoinHeaderSchema = z.object({
+  Authorization: z.string().openapi({
+    example: "Bearer TOKEN",
+  }),
+});
