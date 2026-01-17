@@ -18,6 +18,8 @@ authRoute.openapi(
   createRoute({
     method: "post",
     path: "/register",
+    tags: ["Auth"],
+    summary: "Register new user",
     request: {
       body: { content: { "application/json": { schema: RegisterUserSchema } } },
     },
@@ -51,10 +53,10 @@ authRoute.openapi(
         {
           message: "Username or email already exist",
         },
-        400
+        400,
       );
     }
-  }
+  },
 );
 
 // POST log in
@@ -62,6 +64,8 @@ authRoute.openapi(
   createRoute({
     method: "post",
     path: "/login",
+    tags: ["Auth"],
+    summary: "Login user",
     request: {
       body: { content: { "application/json": { schema: LoginUserSchema } } },
     },
@@ -101,7 +105,7 @@ authRoute.openapi(
 
       const isMatch = await Bun.password.verify(
         body.password,
-        user.password?.hash
+        user.password?.hash,
       );
 
       if (!isMatch) {
@@ -118,10 +122,10 @@ authRoute.openapi(
         {
           message: "Email or password in correct",
         },
-        400
+        400,
       );
     }
-  }
+  },
 );
 
 // GET auth/me
@@ -129,6 +133,8 @@ authRoute.openapi(
   createRoute({
     method: "get",
     path: "/me",
+    tags: ["Auth"],
+    summary: "Get current logged in user",
     middleware: checkAuthorized,
     responses: {
       200: {
@@ -144,5 +150,5 @@ authRoute.openapi(
     const user = c.get("user");
 
     return c.json(user);
-  }
+  },
 );
