@@ -1,6 +1,7 @@
 import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import { db } from "../../lib/db";
 import {
+  AuthHeaderSchema,
   LoginUserSchema,
   PrivateUserSchema,
   RegisterUserSchema,
@@ -18,6 +19,8 @@ authRoute.openapi(
   createRoute({
     method: "post",
     path: "/register",
+    tags: ["Auth"],
+    summary: "Register new user",
     request: {
       body: { content: { "application/json": { schema: RegisterUserSchema } } },
     },
@@ -62,6 +65,8 @@ authRoute.openapi(
   createRoute({
     method: "post",
     path: "/login",
+    tags: ["Auth"],
+    summary: "Login user",
     request: {
       body: { content: { "application/json": { schema: LoginUserSchema } } },
     },
@@ -129,6 +134,9 @@ authRoute.openapi(
   createRoute({
     method: "get",
     path: "/me",
+    tags: ["Auth"],
+    summary: "Get current user",
+    request: { headers: AuthHeaderSchema },
     middleware: checkAuthorized,
     responses: {
       200: {

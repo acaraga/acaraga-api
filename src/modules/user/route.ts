@@ -10,6 +10,8 @@ userRoute.openapi(
   createRoute({
     method: "get",
     path: "/",
+    tags: ["Users"],
+    summary: "Get all users",
     responses: {
       200: {
         description: "Get all users",
@@ -25,7 +27,7 @@ userRoute.openapi(
     });
 
     return c.json(users);
-  }
+  },
 );
 
 // GET users by id
@@ -33,6 +35,8 @@ userRoute.openapi(
   createRoute({
     method: "get",
     path: "/{id}",
+    tags: ["Users"],
+    summary: "Get user by Id",
     request: { params: UserIdParamSchema },
     responses: {
       200: {
@@ -59,5 +63,5 @@ userRoute.openapi(
     }
 
     return c.json(user);
-  }
+  },
 );

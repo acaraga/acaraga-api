@@ -40,3 +40,9 @@ export const LoginResponseSchema = z.object({
 });
 
 export const TokenSchema = z.string();
+
+export const AuthHeaderSchema = z.object({
+  Authorization: z.string().openapi({
+    example: "Bearer TOKEN",
+  }),
+});
