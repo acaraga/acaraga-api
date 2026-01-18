@@ -8,6 +8,7 @@ import { cors } from "hono/cors";
 import { userRoute } from "./modules/user/route";
 import { authRoute } from "./modules/auth/route";
 import { joinEventRoute } from "./modules/join-events/route";
+import { myEventsRoute } from "./modules/my-events/route";
 
 const app = new OpenAPIHono();
 
@@ -18,6 +19,7 @@ app.route("/categories", categoriesRoute);
 app.route("/users", userRoute);
 app.route("/auth", authRoute);
 app.route("/join-event", joinEventRoute);
+app.route("/my-events", myEventsRoute);
 
 app.doc("/openapi.json", {
   openapi: "3.0.0",
