@@ -59,5 +59,5 @@ joinEventRoute.openapi(
     });
 
     return c.json({ message: "Successfully joined event" }, 201);
-  },
+  }
 );

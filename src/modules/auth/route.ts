@@ -54,10 +54,10 @@ authRoute.openapi(
         {
           message: "Username or email already exist",
         },
-        400,
+        400
       );
     }
-  },
+  }
 );
 
 // POST log in
@@ -106,7 +106,7 @@ authRoute.openapi(
 
       const isMatch = await Bun.password.verify(
         body.password,
-        user.password?.hash,
+        user.password?.hash
       );
 
       if (!isMatch) {
@@ -123,10 +123,10 @@ authRoute.openapi(
         {
           message: "Email or password in correct",
         },
-        400,
+        400
       );
     }
-  },
+  }
 );
 
 // GET auth/me
@@ -152,5 +152,5 @@ authRoute.openapi(
     const user = c.get("user");
 
     return c.json(user);
-  },
+  }
 );
