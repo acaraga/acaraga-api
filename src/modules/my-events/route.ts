@@ -31,7 +31,11 @@ myEventsRoute.openapi(
         userId: userId,
       },
       include: {
-        event: true,
+        event: {
+          include: {
+            location: true,
+          },
+        },
       },
     });
 
