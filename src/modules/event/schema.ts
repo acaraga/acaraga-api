@@ -32,9 +32,18 @@ export const EventSchema = z.object({
   imageUrl: z.string().nullable().openapi({
     example: "https://cdn.uploadcare.com/4DHAG67-000",
   }),
+
   description: z.string().nullable().openapi({
     example: "Annual international running event",
   }),
+
+  facilities: z
+    .string()
+    .nullable()
+    .openapi({
+      example: `- Bespoke finisher's medal 
+    - Water stations`,
+    }),
 
   locationId: z.string().nullable().openapi({ example: -6.218 }),
   categoryId: z.string().nullable().openapi({ example: 106.802 }),
@@ -81,6 +90,10 @@ export const EventCreateSchema = z.object({
 
   registrationUrl: z.string().optional(),
   registrationFee: z.number(),
+
+  facilities: z.string().optional().openapi({
+    example: '["Jersey","Medal","BIB","Timing Chip","Refreshment"]',
+  }),
 });
 
 export const EventUpdateSchema = EventCreateSchema.partial();
@@ -92,14 +105,3 @@ export const EventIdParamSchema = z.object({
 export const EventSlugParamSchema = z.object({
   slug: z.string().openapi({ example: "summer-festival-2026" }),
 });
-
-// export const JoinEventCreateSchema = z.object({
-//   eventId: z.string(),
-//   userId: z.string(),
-// });
-
-// export const JoinEventResponseSchema = z.object({
-//   success: z.boolean().openapi({ example: true }),
-//   message: z.string().openapi({ example: "Successfully joined the event" }),
-//   registrationId: z.string().openapi({ example: "REG-12345" }),
-// });

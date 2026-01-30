@@ -40,6 +40,7 @@ model Event {
   name        String
   imageUrl    String?
   description String?
+  facilities  String?
 
   location   Location? @relation(fields: [locationId], references: [id])
   locationId String?
