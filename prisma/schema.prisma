@@ -13,6 +13,8 @@ model User {
   email    String @unique
   fullName String
 
+  role Role @default(USER)
+
   password Password?
 
   organizedEvents Event[]            @relation("EventOrganizer")
@@ -99,4 +101,10 @@ model Location {
   longitude Float?
 
   events Event[]
+}
+
+enum Role {
+  USER
+  ORGANIZER
+  ADMIN
 }

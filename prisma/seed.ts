@@ -4,6 +4,7 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { dataEvents } from "./data/events";
 import { dataCategories } from "./data/categories";
 import { dataLocations } from "./data/locations";
+import { dataUsers } from "./data/users";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
@@ -13,6 +14,15 @@ const db = new PrismaClient({ adapter });
 
 async function seedEvents() {
   console.log("Seeding Events...");
+
+  const organizer = await db.user.findFirst({
+    where: { role: "ORGANIZER" },
+  });
+
+  if (!organizer) {
+    throw new Error("Organizer not found. Seed users first.");
+  }
+
   for (const dataEvent of dataEvents) {
     const { categorySlug, locationSlug, ...eventBase } = dataEvent;
 
@@ -22,13 +32,11 @@ async function seedEvents() {
       });
 
       const location = await db.location.findUnique({
-        where: { slug: dataEvent.locationSlug },
+        where: { slug: locationSlug },
       });
 
       if (!location) {
-        console.warn(
-          `Location with slug '${dataEvent.locationSlug}' not found.`
-        );
+        console.warn(`Location with slug '${locationSlug}' not found.`);
         continue;
       }
 
@@ -36,6 +44,7 @@ async function seedEvents() {
         ...eventBase,
         categoryId: category.id,
         locationId: location.id,
+        organizerId: organizer.id,
       };
 
       const event = await db.event.upsert({
@@ -74,7 +83,36 @@ async function seedLocations() {
   }
 }
 
+async function seedUsers() {
+  console.log("Seeding Users...");
+
+  for (const user of dataUsers) {
+    await db.user.upsert({
+      where: { email: user.email },
+      update: {
+        username: user.username,
+        fullName: user.fullName,
+        role: user.role,
+      },
+      create: {
+        username: user.username,
+        email: user.email,
+        fullName: user.fullName,
+        role: user.role,
+        password: {
+          create: {
+            hash: user.passwordHash,
+          },
+        },
+      },
+    });
+
+    console.log(`👤 Seeded User: ${user.username}`);
+  }
+}
+
 async function main() {
+  await seedUsers();
   await seedCategories();
   await seedLocations();
   await seedEvents();
