@@ -1,10 +1,45 @@
-import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
+import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import { db } from "../../lib/db";
 import { checkAuthorized } from "../auth/middleware";
 import { JoinEventSchema, JoinHeaderSchema } from "./schema";
 
 export const joinEventRoute = new OpenAPIHono();
 
+// GET CHECK JOIN STATUS
+joinEventRoute.openapi(
+  createRoute({
+    method: "get",
+    path: "/check/{eventId}", // Path untuk nge-cek status
+    tags: ["Join Event"],
+    summary: "Check if user already joined an event",
+    middleware: checkAuthorized,
+    request: {
+      params: z.object({
+        eventId: z.string().openapi({ example: "event_id_123" }),
+      }),
+    },
+    responses: {
+      200: { description: "Join status" },
+      401: { description: "Unauthorized" },
+    },
+  }),
+  async (c) => {
+    const { eventId } = c.req.valid("param");
+    const user = c.get("user") as any;
+    const userId = user.id;
+
+    const participant = await db.eventParticipant.findFirst({
+      where: {
+        userId: userId,
+        eventId: eventId,
+      },
+    });
+
+    return c.json({ isJoined: !!participant }, 200); // !! mengubah objek/null jadi boolean true/false
+  },
+);
+
+// POST JOIN EVENT
 joinEventRoute.openapi(
   createRoute({
     method: "post",
@@ -59,5 +94,5 @@ joinEventRoute.openapi(
     });
 
     return c.json({ message: "Successfully joined event" }, 201);
-  }
+  },
 );
