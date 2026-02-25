@@ -135,7 +135,7 @@ authRoute.openapi(
     method: "get",
     path: "/me",
     tags: ["Auth"],
-    summary: "Get current user",
+    summary: "Get authenticated user",
     request: { headers: AuthHeaderSchema },
     middleware: checkAuthorized,
     responses: {
