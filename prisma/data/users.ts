@@ -7,6 +7,8 @@ type SeedUser = {
 };
 
 const DEV_HASH = "REPLACE_WITH_VALID_HASH";
+const DEV_ORGANIZER =
+  "$argon2id$v=19$m=65536,t=2,p=1$ZGtVERRU1VG8smGEGRhkToBmpkpCq9ixlLk1hDczKEk$aLPby1kQB9qMg/KN5yCWuOmGCgpA29lcShFXlJrkLw8";
 
 export const dataUsers: SeedUser[] = [
   {
@@ -14,7 +16,21 @@ export const dataUsers: SeedUser[] = [
     email: "gapurotogapuro@acaraga.com",
     fullName: "Gapuro to Gapuro Organizer",
     role: "ORGANIZER",
-    passwordHash: DEV_HASH,
+    passwordHash: DEV_ORGANIZER,
+  },
+  {
+    username: "provaliantsport",
+    email: "minionsrun@acaraga.com",
+    fullName: "Minion Run Organizer",
+    role: "ORGANIZER",
+    passwordHash: DEV_ORGANIZER,
+  },
+  {
+    username: "spindorun",
+    email: "spindorun@acaraga.com",
+    fullName: "SPINDO Run Organizer",
+    role: "ORGANIZER",
+    passwordHash: DEV_ORGANIZER,
   },
   {
     username: "oxyparfume",
@@ -30,13 +46,7 @@ export const dataUsers: SeedUser[] = [
     role: "ORGANIZER",
     passwordHash: DEV_HASH,
   },
-  {
-    username: "provaliantsport",
-    email: "minionsrun@acaraga.com",
-    fullName: "Minion Run Organizer",
-    role: "ORGANIZER",
-    passwordHash: DEV_HASH,
-  },
+
   {
     username: "grandwisata",
     email: "grandwisata@acaraga.com",
@@ -83,13 +93,6 @@ export const dataUsers: SeedUser[] = [
     username: "liramedika",
     email: "liramedika@acaraga.com",
     fullName: "Lira Medika Organizer",
-    role: "ORGANIZER",
-    passwordHash: DEV_HASH,
-  },
-  {
-    username: "spindorun",
-    email: "spindorun@acaraga.com",
-    fullName: "SPINDO Run Organizer",
     role: "ORGANIZER",
     passwordHash: DEV_HASH,
   },
