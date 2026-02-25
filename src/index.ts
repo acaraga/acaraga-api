@@ -9,6 +9,8 @@ import { userRoute } from "./modules/user/route";
 import { authRoute } from "./modules/auth/route";
 import { joinEventRoute } from "./modules/join-events/route";
 import { myEventsRoute } from "./modules/my-events/route";
+import { organizerRoute } from "./modules/organizer/routes";
+import { organizersRoute } from "./modules/organizers/route";
 
 const app = new OpenAPIHono();
 
@@ -20,6 +22,8 @@ app.route("/users", userRoute);
 app.route("/auth", authRoute);
 app.route("/join-event", joinEventRoute);
 app.route("/my-events", myEventsRoute);
+app.route("/organizer", organizerRoute);
+app.route("/organizers", organizersRoute);
 
 app.doc("/openapi.json", {
   openapi: "3.0.0",
@@ -34,7 +38,7 @@ app.get(
   Scalar({
     pageTitle: "Acaraga API",
     url: "/openapi.json",
-  })
+  }),
 );
 
 export default app;

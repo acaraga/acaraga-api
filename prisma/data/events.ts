@@ -6,6 +6,7 @@ type Event = {
   facilities: string;
   locationSlug: string;
   categorySlug: string;
+  organizerUsername: string;
   dateTimeStart: Date;
   dateTimeEnd: Date;
   registrationUrl: string;
@@ -16,6 +17,7 @@ export const dataEvents: Event[] = [
   {
     slug: "gapuro-to-gapuro",
     name: "Gapuro to Gapuro",
+    organizerUsername: "gapurotogapuro",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/64ce8443-379c-4591-8fe9-cf0c8d7aedb1/-/preview/800x1000",
     description:
@@ -37,6 +39,7 @@ export const dataEvents: Event[] = [
   {
     slug: "oxy-fun-run",
     name: "OXY Fun Run",
+    organizerUsername: "oxyparfume",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/d7f95692-6692-4386-8a5f-d4afe6ca99bf/-/preview/1000x1000",
     description:
@@ -58,6 +61,7 @@ export const dataEvents: Event[] = [
   {
     slug: "lintas-sentul-trail-run",
     name: "Lintas Sentul Trail Run",
+    organizerUsername: "lintassentul",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/8a85b57b-6d48-4fd1-b8d7-5a467edca53c/-/preview/801x999",
     description:
@@ -78,6 +82,7 @@ export const dataEvents: Event[] = [
   {
     slug: "minion-run-2026",
     name: "Minion Run 2026",
+    organizerUsername: "provaliantsport",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/f2e0ebcc-f7c8-4de5-b3ae-927207b5ceeb/-/preview/800x1000",
     description:
@@ -98,6 +103,7 @@ export const dataEvents: Event[] = [
   {
     slug: "esalta-fun-run",
     name: "Esalta Fun Run",
+    organizerUsername: "grandwisata",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/a608b571-4111-4e9b-ab1d-3aa81e39dbff/-/preview/800x1000",
     description:
@@ -119,6 +125,7 @@ export const dataEvents: Event[] = [
   {
     slug: "wonderkindness-fun-run",
     name: "Wonderkindness Fun Run",
+    organizerUsername: "quproindonesia",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/5ae66046-cbdf-424a-aecb-a7bb6a2b2ec7/-/preview/800x1000/",
     description:
@@ -140,6 +147,7 @@ export const dataEvents: Event[] = [
   {
     slug: "borobudur-edurun",
     name: "Borobudur EduRun",
+    organizerUsername: "borobuduredurun",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/d703aa80-ee77-4413-935f-e3e586068301/-/preview/800x1000",
     description:
@@ -163,6 +171,7 @@ export const dataEvents: Event[] = [
   {
     slug: "emba-jetbus-run-malang-10k",
     name: "EMBA | JETBUS Run Malang 10K",
+    organizerUsername: "embajetbus",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/633d4b68-589b-4781-991f-d9d504fafa03/-/preview/800x1000",
     description:
@@ -184,6 +193,7 @@ export const dataEvents: Event[] = [
   {
     slug: "bogor-color-run-festival",
     name: "Bogor Color Run Festival",
+    organizerUsername: "ahpongsentul",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/5e8d406a-d47b-49f5-9455-ad2ff59330ab/-/preview/800x1000",
     description:
@@ -204,6 +214,7 @@ export const dataEvents: Event[] = [
   {
     slug: "garuda-running-5k",
     name: "Garuda Running 5K",
+    organizerUsername: "smataruna",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/e293c43d-fe10-4d8e-aa58-82453f7967ac/-/preview/760x540",
     description:
@@ -224,6 +235,7 @@ export const dataEvents: Event[] = [
   {
     slug: "lira-fun-run-2026",
     name: "LIRA FUN RUN 2026",
+    organizerUsername: "liramedika",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/2bf2e823-0343-4840-be7d-a2eabbdd7661/-/preview/800x1000",
     description:
@@ -245,6 +257,7 @@ export const dataEvents: Event[] = [
   {
     slug: "spindo-run",
     name: "SPINDO Run",
+    organizerUsername: "spindorun",
     imageUrl:
       "https://3zwxtcw6a1.ucarecd.net/a93072e6-b272-431a-b8cb-4dac65e88d3e/-/preview/800x1000",
     description:

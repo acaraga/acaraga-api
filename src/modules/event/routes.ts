@@ -28,7 +28,17 @@ eventsRoute.openapi(
   }),
   async (c) => {
     const events = await db.event.findMany({
-      include: { category: true, location: true },
+      include: {
+        category: true,
+        location: true,
+        organizer: {
+          select: {
+            id: true,
+            username: true,
+            fullName: true,
+          },
+        },
+      },
     });
 
     return c.json(events);
@@ -60,6 +70,13 @@ eventsRoute.openapi(
       include: {
         category: true,
         location: true,
+        organizer: {
+          select: {
+            id: true,
+            username: true,
+            fullName: true,
+          },
+        },
         joinedUsers: {
           include: {
             user: {

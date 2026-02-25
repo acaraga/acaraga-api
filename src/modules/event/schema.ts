@@ -21,10 +21,18 @@ export const CategorySchema = z.object({
   name: z.string().openapi({ example: "Running" }),
 });
 
+export const OrganizerSchema = z.object({
+  id: z.string().openapi({ example: "01KCK0H8A6M5R9B2Q7CV094" }),
+  username: z.string().openapi({ example: "spindorun" }),
+  fullName: z.string().openapi({ example: "SPINDO Run Organizer" }),
+});
+
 export const EventSchema = z.object({
   id: z.string().openapi({ example: "01KCK2P8M4A7F5R2B6X9YHDQ" }),
   slug: z.string().openapi({ example: "jakarta-running-2026" }),
   name: z.string().openapi({ example: "Jakarta running 2026" }),
+
+  organizer: OrganizerSchema.nullable().optional(),
 
   participants: z.array(EventParticipantUserSchema).optional(),
   totalParticipants: z.number().optional(),
@@ -51,12 +59,8 @@ export const EventSchema = z.object({
   location: LocationSchema.nullable(),
   category: CategorySchema.nullable(),
 
-  dateTimeStart: z.string().openapi({
-    example: "2026-01-01T08:00:00+07:00",
-  }),
-  dateTimeEnd: z.string().openapi({
-    example: "2026-01-01T12:00:00+07:00",
-  }),
+  dateTimeStart: z.string().openapi({ example: "2026-01-01T08:00:00+07:00" }),
+  dateTimeEnd: z.string().openapi({ example: "2026-01-01T12:00:00+07:00" }),
 
   registrationUrl: z.string().nullable().openapi({
     example: "https://event.acaraga.com/register",
