@@ -5,13 +5,27 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+
 }
 
+
+
+enum Role {
+    USER 
+    ADMIN
+}
+
+enum EventStatus {
+DRAFT
+PUBLISHED
+}
 model User {
   id       String @id @default(ulid())
   username String @unique
   email    String @unique
   fullName String
+
+  role Role @default(USER)
 
   password Password?
 
@@ -41,6 +55,8 @@ model Event {
   imageUrl    String?
   description String?
   facilities  String?
+
+  status EventStatus @default(DRAFT)
 
   location   Location? @relation(fields: [locationId], references: [id])
   locationId String?

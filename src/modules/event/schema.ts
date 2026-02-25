@@ -105,3 +105,15 @@ export const EventIdParamSchema = z.object({
 export const EventSlugParamSchema = z.object({
   slug: z.string().openapi({ example: "summer-festival-2026" }),
 });
+
+
+
+export const CreateEventBodySchema = z.object({
+  name: z.string().min(3).openapi({ example: "Borobudur Marathon 2026" }),
+  slug: z.string().min(3).openapi({ example: "borobudur-marathon-2026" }),
+  description: z.string().optional().openapi({ example: "Event lari tahunan terbesar di Magelang." }),
+  registrationFee: z.number().min(0).openapi({ example: 150000 }),
+  dateTimeStart: z.string().datetime().openapi({ example: "2026-11-15T06:00:00Z" }), 
+  categoryId: z.string().openapi({ example: "01HQ... (ID Kategori)" }),
+  locationId: z.string().openapi({ example: "01HQ... (ID Lokasi)" }),
+});
