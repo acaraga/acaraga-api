@@ -125,7 +125,7 @@ authRoute.openapi(
             username: user.username,
             fullName: user.fullName,
             email: user.email,
-            role: user.role, // "USER" atau "ORGANIZER"
+            role: user.role,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
           },

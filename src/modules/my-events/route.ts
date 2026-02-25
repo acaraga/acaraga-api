@@ -54,7 +54,7 @@ myEventsRoute.openapi(
 myEventsRoute.openapi(
   createRoute({
     method: "get",
-    path: "/organizer", // Bedakan path-nya agar tidak bentrok dengan milik peserta
+    path: "/organizer",
     tags: ["Organizer"],
     summary: "Get all events created by organizer with participants",
     middleware: checkAuthorized,
@@ -62,21 +62,20 @@ myEventsRoute.openapi(
       200: { description: "List of organizer events with participants" },
     },
   }),
-  // DI BACKEND
+
   async (c) => {
     const user = c.get("user") as any;
     const userId = user.id;
 
     const myEvents = await db.event.findMany({
       where: {
-        organizerId: userId, // Mencari event yang dibuat Spindorun
+        organizerId: userId,
       },
       include: {
         location: true,
         joinedUsers: {
-          // Sesuai nama di schema.prisma kamu
           include: {
-            user: true, // Untuk ambil nama Salasa
+            user: true,
           },
         },
       },
