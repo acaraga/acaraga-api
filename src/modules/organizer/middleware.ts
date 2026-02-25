@@ -1,5 +1,5 @@
 import { createMiddleware } from "hono/factory";
-import type { AppEnv } from "../types/env";
+import type { AppEnv } from "../../types/env";
 
 export const requireOrganizer = createMiddleware<AppEnv>(async (c, next) => {
   const user = c.get("user");
