@@ -117,7 +117,21 @@ authRoute.openapi(
 
       const token = await signToken(user.id);
 
-      return c.text(token);
+      return c.json(
+        {
+          token: token,
+          user: {
+            id: user.id,
+            username: user.username,
+            fullName: user.fullName,
+            email: user.email,
+            role: user.role, // "USER" atau "ORGANIZER"
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+          },
+        },
+        200,
+      );
     } catch (error) {
       return c.json(
         {

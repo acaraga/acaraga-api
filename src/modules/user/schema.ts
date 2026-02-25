@@ -40,6 +40,8 @@ export const LoginResponseSchema = z.object({
   token: z.string(),
 });
 
+export type LoginResponse = z.infer<typeof LoginResponseSchema>;
+
 export const TokenSchema = z.string();
 
 export const AuthHeaderSchema = z.object({
