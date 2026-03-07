@@ -11,3 +11,15 @@ export const requireOrganizer = createMiddleware<AppEnv>(async (c, next) => {
 
   await next();
 });
+
+
+export const requireUser = createMiddleware<AppEnv>(async (c, next) => {
+  const user = c.get("user");
+  if (!user) return c.json({ message: "Unauthorized" }, 401);
+
+  if (user.role !== "USER") {
+    return c.json({ message: "Forbidden: user only" }, 403);
+  }
+  
+  await next();
+});
