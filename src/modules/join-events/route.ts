@@ -2,8 +2,10 @@ import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
 import { db } from "../../lib/db";
 import { checkAuthorized } from "../auth/middleware";
 import { JoinEventSchema, JoinHeaderSchema } from "./schema";
+import { requireUser } from "../organizer/middleware";
+import type { AppEnv } from "../../types/env";
 
-export const joinEventRoute = new OpenAPIHono();
+export const joinEventRoute = new OpenAPIHono<AppEnv>();
 
 // GET CHECK JOIN STATUS
 joinEventRoute.openapi(
@@ -25,8 +27,13 @@ joinEventRoute.openapi(
   }),
   async (c) => {
     const { eventId } = c.req.valid("param");
-    const user = c.get("user") as any;
+    const user = c.get("user");
     const userId = user.id;
+
+
+    if (user.role === "ORGANIZER") {
+      return c.json({ isJoined: false, message: "Organizer cannot join" }, 200);
+    }
 
     const participant = await db.eventParticipant.findFirst({
       where: {
@@ -46,7 +53,7 @@ joinEventRoute.openapi(
     path: "/",
     tags: ["Join Event"],
     summary: "Join an event",
-    middleware: checkAuthorized,
+    middleware: [checkAuthorized, requireUser],
     request: {
       headers: JoinHeaderSchema,
       body: {
@@ -62,6 +69,7 @@ joinEventRoute.openapi(
       400: { description: "User already joined event" },
       401: { description: "Unauthorized" },
       404: { description: "Event not found" },
+      403: { description: "Forbidden: Only users can join" },
     },
   }),
   async (c) => {
